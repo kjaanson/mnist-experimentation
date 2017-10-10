@@ -9,7 +9,8 @@ which is GPL licensed.
 Taken from https://gist.github.com/akesling/5358964
 """
 
-def read(dataset = "training", path = "."):
+
+def read(dataset="training", path="."):
     """
     Python function for importing the MNIST data set.  It returns an iterator
     of 2-tuples with the first element being the label and the second element
@@ -34,11 +35,12 @@ def read(dataset = "training", path = "."):
         magic, num, rows, cols = struct.unpack(">IIII", fimg.read(16))
         img = np.fromfile(fimg, dtype=np.uint8).reshape(len(lbl), rows, cols)
 
-    get_img = lambda idx: (lbl[idx], img[idx])
+    def get_img(idx): return (lbl[idx], img[idx])
 
     # Create an iterator which returns each image in turn
     for i in range(len(lbl)):
         yield get_img(i)
+
 
 def show(image):
     """
@@ -47,7 +49,7 @@ def show(image):
     from matplotlib import pyplot
     import matplotlib as mpl
     fig = pyplot.figure()
-    ax = fig.add_subplot(1,1,1)
+    ax = fig.add_subplot(1, 1, 1)
     imgplot = ax.imshow(image, cmap=mpl.cm.Greys)
     imgplot.set_interpolation('nearest')
     ax.xaxis.set_ticks_position('top')
